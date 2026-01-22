@@ -1,0 +1,70 @@
+<script setup lang="ts">
+import type { Vehicle } from '@/types/Vehicle';
+
+const props = defineProps<{
+  vehicle: Vehicle;
+}>();
+
+const emit = defineEmits<{
+  (e: 'delete-vehicle', vehicleId: number): void;
+}>();
+
+const deleteVehicle = (vehicleId: number) => {
+  emit('delete-vehicle', vehicleId);
+};
+</script>
+
+<template>
+  <div class="vehicle-card">
+    <div class="vehicle-header">
+      <h3>{{ props.vehicle.brand }} - {{ props.vehicle.model }}</h3>
+    </div>
+    <div class="vehicle-details">
+      <p><strong>Targa:</strong> {{ props.vehicle.license_plate }}</p>
+    </div>
+    <div class="vehicle-actions">
+      <button class="btn-secondary">Modifica</button>
+      <button @click="deleteVehicle(props.vehicle.id)" class="btn-danger">Elimina</button>
+    </div>
+  </div>
+</template>
+
+<style scoped>
+  .vehicle-card {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .vehicle-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    padding-bottom: 16px;
+    border-bottom: 2px solid #f3f4f6;
+  }
+
+  .vehicle-header h3 {
+    margin: 0;
+    font-size: 20px;
+    color: #111827;
+  }
+
+  .vehicle-details {
+    margin-bottom: 16px;
+  }
+
+  .vehicle-details p {
+    margin: 8px 0;
+    color: #6b7280;
+    font-size: 14px;
+  }
+
+  .vehicle-actions {
+    display: flex;
+    gap: 8px;
+  }
+</style>

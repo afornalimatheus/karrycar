@@ -17,6 +17,9 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         User::factory(10)->create();
-        Vehicle::factory(20)->create();
+        Vehicle::factory(20)->create()->each(function ($vehicle) {
+            $vehicle->provider_id = User::inRandomOrder()->first()->id;
+            $vehicle->save();
+        });
     }
 }

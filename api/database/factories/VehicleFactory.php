@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -20,7 +21,7 @@ class VehicleFactory extends Factory
             'brand' => $this->faker->company(),
             'model' => $this->faker->word(),
             'license_plate' => strtoupper($this->faker->bothify('???####')),
-            'provider_id' => \App\Models\User::factory(),
+            'provider_id' => User::factory()->state(['role' => User::ROLE_PROVIDER]),
         ];
     }
 }

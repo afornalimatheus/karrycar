@@ -1,4 +1,5 @@
 import api from '@/config/api';
+import type { User } from '@/types/User';
 
 export interface LoginCredentials {
   email: string;
@@ -7,12 +8,7 @@ export interface LoginCredentials {
 
 export interface LoginResponse {
   message: string;
-  user: {
-    id: number;
-    name: string;
-    email: string;
-    role: 'provider' | 'consumer';
-  };
+  user: User;
   token: string;
 }
 
@@ -35,8 +31,9 @@ export const authService = {
     return localStorage.getItem('auth_token');
   },
 
-  getUser() {
+  getUser(): User | null {
     const userStr = localStorage.getItem('user');
+
     return userStr ? JSON.parse(userStr) : null;
   },
 

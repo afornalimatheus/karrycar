@@ -19,7 +19,7 @@ class VehicleController extends Controller
 
     public function index()
     {
-        $vehicles = Vehicle::with('provider')->get();
+        $vehicles = $this->vehicleService->getAvailableVehicles(auth()->user());
 
         return ListVehiclesResource::collection($vehicles);
     }
@@ -56,6 +56,13 @@ class VehicleController extends Controller
         $vehicle->delete();
 
         return response()->json(['message' => 'Veicolo eliminato con successo.'], 200);
+    }
+
+    public function getProviderVehicles(User $provider)
+    {
+        $vehicles = $this->vehicleService->getProviderVehicles($provider);
+
+        return ListVehiclesResource::collection($vehicles);
     }
 
     public function getAvailableVehicles()
