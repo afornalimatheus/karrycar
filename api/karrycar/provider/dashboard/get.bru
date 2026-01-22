@@ -1,0 +1,16 @@
+meta {
+  name: get
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{domain}}/provider/dashboard
+  body: none
+  auth: inherit
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
