@@ -17,7 +17,7 @@ class CheckRole
     {
         if (!$request->user() || $request->user()->role !== $role) {
             return response()->json([
-                'message' => 'Acesso negado. Você não tem permissão para acessar este recurso.',
+                'message' => 'Accesso negato. Non hai il ruolo necessario per accedere a questa risorsa.',
             ], 403);
         }
 

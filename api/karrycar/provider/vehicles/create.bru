@@ -1,0 +1,24 @@
+meta {
+  name: create
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{domain}}/provider/{{provider}}/vehicles
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "brand": "Mercedes",
+    "model": "200",
+    "license_plate": "BBBB"
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

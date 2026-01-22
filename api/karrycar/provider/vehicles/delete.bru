@@ -1,0 +1,20 @@
+meta {
+  name: delete
+  type: http
+  seq: 4
+}
+
+delete {
+  url: {{domain}}/provider/{{provider}}/vehicles/:vehicleId
+  body: none
+  auth: inherit
+}
+
+params:path {
+  vehicleId: 10
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
