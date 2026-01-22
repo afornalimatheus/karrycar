@@ -1,0 +1,24 @@
+meta {
+  name: create
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{domain}}/consumer/{{consumer}}/reservation
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "brand": "Mercedes",
+    "model": "200",
+    "license_plate": "BBBB"
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

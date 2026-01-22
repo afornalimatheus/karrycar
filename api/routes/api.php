@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Provider\Vehicles\VehicleController;
+use App\Http\Controllers\ReservationController;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
@@ -18,7 +19,9 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::prefix('consumer')->name('consumer.')->middleware("role:" . User::ROLE_CONSUMER)->group(function () {
         Route::prefix('{consumer}')->middleware('owns:consumer')->group(function () {
-            
+            Route::get('/available-vehicles', [VehicleController::class, 'getAvailableVehicles'])->name('available-vehicles.index');
+
+            Route::apiResource('reservations', ReservationController::class)->scoped();
         });
     });
 });

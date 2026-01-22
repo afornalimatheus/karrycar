@@ -1,0 +1,16 @@
+meta {
+  name: get available vehicles today
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{domain}}/consumer/10/available-vehicles
+  body: none
+  auth: inherit
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

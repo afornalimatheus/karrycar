@@ -9,9 +9,14 @@ use App\Http\Resources\Provider\Vehicle\CreateVehicleResource;
 use App\Http\Resources\Provider\Vehicle\ListVehiclesResource;
 use App\Models\User;
 use App\Models\Vehicle;
+use App\Services\VehicleService;
 
 class VehicleController extends Controller
 {
+    public function __construct(
+        protected VehicleService $vehicleService
+    ) {}
+
     public function index()
     {
         $vehicles = Vehicle::with('provider')->get();
@@ -51,5 +56,12 @@ class VehicleController extends Controller
         $vehicle->delete();
 
         return response()->json(['message' => 'Veicolo eliminato con successo.'], 200);
+    }
+
+    public function getAvailableVehicles()
+    {
+        $vehicles = $this->vehicleService->getAvailableVehicles();
+
+        return ListVehiclesResource::collection($vehicles);
     }
 }

@@ -25,4 +25,9 @@ class Vehicle extends Model
     {
         return $this->belongsTo(User::class, 'provider_id');
     }
+
+    public function reservations()
+    {
+        return $this->hasMany(Reservations::class);
+    }
 }
