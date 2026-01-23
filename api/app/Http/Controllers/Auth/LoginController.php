@@ -24,8 +24,7 @@ class LoginController extends Controller
 
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
-            
-            // Criar um token de autenticação (usando Sanctum)
+
             $token = $user->createToken('auth_token')->plainTextToken;
 
             return response()->json([
@@ -36,7 +35,7 @@ class LoginController extends Controller
         }
 
         throw ValidationException::withMessages([
-            'email' => ['As credenciais fornecidas estão incorretas.'],
+            'email' => ['Le credenziali fornite non sono corrette.'],
         ]);
     }
 }

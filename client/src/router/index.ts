@@ -2,10 +2,8 @@ import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router'
 import { authService } from '@/services/authService';
 
 import Login from '@/views/Login.vue';
-import ProviderLayout from '@/layouts/ProviderLayout.vue';
-import ConsumerLayout from '@/layouts/ConsumerLayout.vue';
-import ProviderDashboard from '@/views/provider/Dashboard.vue';
-import ConsumerDashboard from '@/views/consumer/Dashboard.vue';
+import Main from '@/layouts/Main.vue';
+import ProviderDashboard from '@/views/Dashboard.vue';
 
 const routes: RouteRecordRaw[] = [
   {
@@ -30,7 +28,7 @@ const routes: RouteRecordRaw[] = [
   },
   {
     path: '/provider/:providerId',
-    component: ProviderLayout,
+    component: Main,
     meta: { 
       requiresAuth: true, 
       role: 'provider',
@@ -50,7 +48,7 @@ const routes: RouteRecordRaw[] = [
   },
   {
     path: '/consumer/:consumerId',
-    component: ProviderLayout,
+    component: Main,
     meta: { 
       requiresAuth: true, 
       role: 'consumer' 
@@ -59,7 +57,7 @@ const routes: RouteRecordRaw[] = [
       {
         path: 'dashboard',
         name: 'ConsumerDashboard',
-        component: ConsumerDashboard
+        component: ProviderDashboard
       },
       {
         path: 'vehicles',

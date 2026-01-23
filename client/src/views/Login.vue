@@ -74,7 +74,6 @@ const handleLogin = async () => {
   display: flex;
   align-items: center;
   justify-content: center;
-  /* background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); */
   padding: 20px;
 }
 
@@ -145,7 +144,7 @@ input:disabled {
 .btn-login {
   width: 100%;
   padding: 14px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: #667eea;
   color: white;
   border: none;
   border-radius: 8px;
@@ -153,10 +152,6 @@ input:disabled {
   font-weight: 600;
   cursor: pointer;
   transition: transform 0.2s, opacity 0.3s;
-}
-
-.btn-login:hover:not(:disabled) {
-  transform: translateY(-2px);
 }
 
 .btn-login:disabled {
@@ -169,40 +164,5 @@ input:disabled {
   position: relative;
   text-align: center;
   margin: 24px 0;
-}
-
-.divider::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background: #e5e7eb;
-}
-
-.divider span {
-  position: relative;
-  background: white;
-  padding: 0 16px;
-  color: #9ca3af;
-  font-size: 14px;
-}
-
-.register-link {
-  text-align: center;
-  color: #6b7280;
-  font-size: 14px;
-  margin: 0;
-}
-
-.register-link a {
-  color: #667eea;
-  text-decoration: none;
-  font-weight: 600;
-}
-
-.register-link a:hover {
-  text-decoration: underline;
 }
 </style>

@@ -1,3 +1,50 @@
+<script setup lang="ts">
+import { ref, computed, onMounted } from 'vue';
+import api from '@/config/api';
+import PrimaryButton from '@/components/PrimaryButton.vue';
+import type { Vehicle } from '@/types/Vehicle';
+import EmptyState from '@/components/EmptyState.vue';
+
+const vehicles = ref<Vehicle[]>([]);
+const loading = ref(true);
+const searchQuery = ref('');
+
+const filteredVehicles = computed(() => {
+  if (!searchQuery.value) {
+    return vehicles.value
+  }
+  
+  const query = searchQuery.value.toLowerCase();
+
+  return vehicles.value.filter(vehicle => 
+    vehicle.brand?.toLowerCase().includes(query) ||
+    vehicle.model?.toLowerCase().includes(query)
+  );
+});
+
+onMounted(async () => {
+  await loadVehicles();
+});
+
+const loadVehicles = async () => {
+  try {
+    loading.value = true;
+
+    const response = await api.get('/vehicles/available');
+
+    vehicles.value = response.data.data || [];
+  } catch (error) {
+    console.error('Non è stato possibile caricare i veicoli:', error);
+  } finally {
+    loading.value = false;
+  }
+};
+
+const reserveVehicle = (vehicle: any) => {
+  console.log('Prenotare: ', vehicle)
+};
+</script>
+
 <template>
   <div class="available-vehicles-page">
     <header class="page-header">
@@ -14,20 +61,17 @@
 
     <div v-if="loading" class="loading">Caricamento veicoli...</div>
 
-    <div v-else-if="filteredVehicles.length === 0" class="empty-state">
-      <h2>Nessun veicolo trovato</h2>
-      <p>NNon ci sono veicoli disponibili al momento.</p>
-    </div>
+    <EmptyState v-else-if="filteredVehicles.length === 0" 
+      title="Nessun veicolo trovato" 
+      message="Non ci sono veicoli disponibili al momento."
+    />
 
     <div v-else class="vehicles-grid">
       <div v-for="vehicle in filteredVehicles" :key="vehicle.id" class="vehicle-card">
         <div class="vehicle-header">
           <h3>{{ vehicle.brand }} {{ vehicle.model }}</h3>
-          <span class="vehicle-year">{{ vehicle.year }}</span>
         </div>
         <div class="vehicle-details">
-          <p><strong>Colore:</strong> {{ vehicle.color }}</p>
-          <p><strong>Prezzo al giorno:</strong> € {{ vehicle.daily_price }}</p>
           <p><strong>Fornitore:</strong> {{ vehicle.provider?.name }}</p>
         </div>
         <div class="vehicle-actions">
@@ -37,51 +81,6 @@
     </div>
   </div>
 </template>
-
-<script setup lang="ts">
-import { ref, computed, onMounted } from 'vue';
-import { useAuth } from '@/composables/useAuth';
-import api from '@/config/api';
-import PrimaryButton from '@/components/PrimaryButton.vue';
-
-const { user } = useAuth();
-const vehicles = ref<any[]>([]);
-const loading = ref(true);
-const searchQuery = ref('');
-
-const filteredVehicles = computed(() => {
-  if (!searchQuery.value) return vehicles.value;
-  
-  const query = searchQuery.value.toLowerCase();
-  return vehicles.value.filter(vehicle => 
-    vehicle.brand?.toLowerCase().includes(query) ||
-    vehicle.model?.toLowerCase().includes(query) ||
-    vehicle.color?.toLowerCase().includes(query)
-  );
-});
-
-onMounted(async () => {
-  await loadVehicles();
-});
-
-const loadVehicles = async () => {
-  try {
-    loading.value = true;
-    const response = await api.get('/vehicles/available');
-    vehicles.value = response.data.data || [];
-  } catch (error) {
-    console.error('Erro ao carregar veículos:', error);
-  } finally {
-    loading.value = false;
-  }
-};
-
-const reserveVehicle = (vehicle: any) => {
-  console.log('Reservar veículo:', vehicle);
-  // Implementar modal de reserva
-  alert(`Funcionalidade de reserva em desenvolvimento.\nVeículo: ${vehicle.brand} ${vehicle.model}`);
-};
-</script>
 
 <style scoped>
 .available-vehicles-page {

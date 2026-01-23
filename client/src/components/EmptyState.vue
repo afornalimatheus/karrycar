@@ -1,11 +1,14 @@
 <script setup lang="ts">
-
+const props = defineProps<{
+  title?: string;
+  message?: string;
+}>();
 </script>
 
 <template>
   <div class="empty-state">
-    <h2>Nessun veicolo trovato</h2>
-    <p>Non hai ancora aggiunto veicoli. Inizia aggiungendo il tuo primo veicolo!</p>
+    <h2>{{ props.title || 'Nessun veicolo trovato' }}</h2>
+    <p>{{ props.message || 'Non hai ancora aggiunto veicoli. Inizia aggiungendo il tuo primo veicolo!' }}</p>
   </div>
 </template>
 

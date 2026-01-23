@@ -8,7 +8,7 @@ const { user } = useAuth();
 </script>
 
 <template>
-  <div class="provider-layout">
+  <div class="main">
     <aside class="sidebar">
       <CompanyWithUserRole />
 
@@ -26,7 +26,7 @@ const { user } = useAuth();
 </template>
 
 <style scoped>
-.provider-layout {
+.main {
   display: flex;
   min-height: 100vh;
   background-color: #f3f4f6;
