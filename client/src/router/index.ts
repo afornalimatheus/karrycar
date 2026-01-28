@@ -3,7 +3,7 @@ import { authService } from '@/services/authService';
 
 import Login from '@/views/Login.vue';
 import Main from '@/layouts/Main.vue';
-import ProviderDashboard from '@/views/Dashboard.vue';
+import Dashboard from '@/views/Dashboard.vue';
 
 const routes: RouteRecordRaw[] = [
   {
@@ -37,12 +37,17 @@ const routes: RouteRecordRaw[] = [
       {
         path: 'dashboard',
         name: 'ProviderDashboard',
-        component: ProviderDashboard
+        component: Dashboard
       },
       {
         path: 'vehicles',
         name: 'ProviderVehicles',
         component: () => import('@/views/provider/Vehicles.vue')
+      },
+      {
+        path: 'vehicles/new',
+        name: 'ProviderNewVehicle',
+        component: () => import('@/views/provider/AddVehicle.vue')
       }
     ]
   },
@@ -57,7 +62,7 @@ const routes: RouteRecordRaw[] = [
       {
         path: 'dashboard',
         name: 'ConsumerDashboard',
-        component: ProviderDashboard
+        component: Dashboard
       },
       {
         path: 'vehicles',

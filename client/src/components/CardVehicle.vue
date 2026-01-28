@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { Vehicle } from '@/types/Vehicle';
+import { Button } from 'primevue';
 
 const props = defineProps<{
   vehicle: Vehicle;
@@ -23,8 +24,8 @@ const deleteVehicle = (vehicleId: number) => {
       <p><strong>Targa:</strong> {{ props.vehicle.license_plate }}</p>
     </div>
     <div class="vehicle-actions">
-      <button class="btn-secondary">Modifica</button>
-      <button @click="deleteVehicle(props.vehicle.id)" class="btn-danger">Elimina</button>
+      <Button label="Modifica" severity="success" icon="pi pi-pencil" />
+      <Button label="Elimina" severity="danger" icon="pi pi-trash" @click="deleteVehicle(props.vehicle.id)" />
     </div>
   </div>
 </template>

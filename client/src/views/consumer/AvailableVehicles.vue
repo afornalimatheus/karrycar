@@ -1,9 +1,12 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue';
 import api from '@/config/api';
-import PrimaryButton from '@/components/PrimaryButton.vue';
+import { useAuth } from '@/composables/useAuth';
 import type { Vehicle } from '@/types/Vehicle';
 import EmptyState from '@/components/EmptyState.vue';
+import VehiclesGrid from '@/components/VehiclesGrid.vue';
+
+const { user } = useAuth();
 
 const vehicles = ref<Vehicle[]>([]);
 const loading = ref(true);
@@ -30,7 +33,7 @@ const loadVehicles = async () => {
   try {
     loading.value = true;
 
-    const response = await api.get('/vehicles/available');
+    const response = await api.get(`/consumer/${user.value?.id}/available-vehicles`);
 
     vehicles.value = response.data.data || [];
   } catch (error) {
@@ -66,18 +69,11 @@ const reserveVehicle = (vehicle: any) => {
       message="Non ci sono veicoli disponibili al momento."
     />
 
-    <div v-else class="vehicles-grid">
-      <div v-for="vehicle in filteredVehicles" :key="vehicle.id" class="vehicle-card">
-        <div class="vehicle-header">
-          <h3>{{ vehicle.brand }} {{ vehicle.model }}</h3>
-        </div>
-        <div class="vehicle-details">
-          <p><strong>Fornitore:</strong> {{ vehicle.provider?.name }}</p>
-        </div>
-        <div class="vehicle-actions">
-          <PrimaryButton @click="reserveVehicle(vehicle)">Reservar</PrimaryButton>
-        </div>
-      </div>
+    <div v-else>
+      <VehiclesGrid 
+        :vehicles="filteredVehicles" 
+        :deleteVehicle="reserveVehicle" 
+      />
     </div>
   </div>
 </template>
@@ -120,87 +116,5 @@ const reserveVehicle = (vehicle: any) => {
   text-align: center;
   padding: 48px;
   color: #6b7280;
-}
-
-.empty-state {
-  text-align: center;
-  padding: 64px 32px;
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-}
-
-.empty-icon {
-  font-size: 64px;
-  display: block;
-  margin-bottom: 16px;
-}
-
-.empty-state h2 {
-  margin: 0 0 8px;
-  font-size: 24px;
-  color: #111827;
-}
-
-.empty-state p {
-  margin: 0;
-  color: #6b7280;
-}
-
-.vehicles-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 24px;
-}
-
-.vehicle-card {
-  background: white;
-  border-radius: 12px;
-  padding: 24px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.vehicle-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-
-.vehicle-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 16px;
-  padding-bottom: 16px;
-  border-bottom: 2px solid #f3f4f6;
-}
-
-.vehicle-header h3 {
-  margin: 0;
-  font-size: 20px;
-  color: #111827;
-}
-
-.vehicle-year {
-  background: #3b82f6;
-  color: white;
-  padding: 4px 12px;
-  border-radius: 12px;
-  font-size: 14px;
-  font-weight: 600;
-}
-
-.vehicle-details {
-  margin-bottom: 16px;
-}
-
-.vehicle-details p {
-  margin: 8px 0;
-  color: #6b7280;
-  font-size: 14px;
-}
-
-.vehicle-actions {
-  display: flex;
 }
 </style>
