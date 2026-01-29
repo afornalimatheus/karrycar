@@ -1,6 +1,10 @@
 <script setup lang="ts">
+import { useAuth } from '@/composables/useAuth';
+import type router from '@/router';
 import type { Vehicle } from '@/types/Vehicle';
 import { Button } from 'primevue';
+
+const { user } = useAuth();
 
 const props = defineProps<{
   vehicle: Vehicle;
@@ -23,9 +27,15 @@ const deleteVehicle = (vehicleId: number) => {
     <div class="vehicle-details">
       <p><strong>Targa:</strong> {{ props.vehicle.license_plate }}</p>
     </div>
-    <div class="vehicle-actions">
+    <div v-if="user?.role === 'provider'" class="vehicle-actions">
       <Button label="Modifica" severity="success" icon="pi pi-pencil" />
       <Button label="Elimina" severity="danger" icon="pi pi-trash" @click="deleteVehicle(props.vehicle.id)" />
+    </div>
+
+    <div v-else-if="user?.role === 'consumer'">
+      <router-link :to="{ name: 'ConsumerScheduleVehicle', query: { vehicleId: props.vehicle.id } }">
+        <Button label="Prenotare" severity="info" icon="pi pi-pencil" />
+      </router-link>
     </div>
   </div>
 </template>

@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import type { ProviderStats } from '@/types/Provider';
 
-
 const props = defineProps<{
   stats: ProviderStats;
 }>();
@@ -13,28 +12,28 @@ const props = defineProps<{
     <div class="stat-card">
       <div class="stat-content">
         <h3>Totale Veicoli</h3>
-        <p class="stat-value">{{ stats.totalVehicles }}</p>
+        <p class="stat-value">{{ stats.total_vehicles }}</p>
       </div>
     </div>
 
     <div class="stat-card">
       <div class="stat-content">
         <h3>Veicoli Disponibili</h3>
-        <p class="stat-value">{{ stats.availableVehicles }}</p>
+        <p class="stat-value">{{ stats.vehicles }}</p>
       </div>
     </div>
 
     <div class="stat-card">
       <div class="stat-content">
         <h3>Prenotazioni Attive</h3>
-        <p class="stat-value">{{ stats.activeReservations }}</p>
+        <p class="stat-value">{{ stats.active_reservations }}</p>
       </div>
     </div>
 
     <div class="stat-card">
       <div class="stat-content">
-        <h3>Entrate Mensili</h3>
-        <p class="stat-value">€ {{ stats.monthlyRevenue }}</p>
+        <h3>Prenotazioni Completate</h3>
+        <p class="stat-value">{{ stats.completed_reservations }}</p>
       </div>
     </div>
   </div>

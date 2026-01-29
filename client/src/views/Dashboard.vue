@@ -8,14 +8,15 @@ import type { ConsumerStats as ConsumerStatsType } from '@/types/Consumer';
 import ConsumerStats from '@/components/dashboard/consumer/ConsumerStats.vue';
 
 import { useAuth } from '@/composables/useAuth';
+import api from '@/config/api';
 
 const { user } = useAuth();
 
 const providerStats = ref<ProviderStatsType>({
-  totalVehicles: 0,
-  availableVehicles: 0,
-  activeReservations: 0,
-  monthlyRevenue: 0
+  active_reservations: 0,
+  total_vehicles: 0,
+  completed_reservations: 0,
+  vehicles: 0
 });
 
 const consumerStats = ref<ConsumerStatsType>({
@@ -27,12 +28,9 @@ const consumerStats = ref<ConsumerStatsType>({
 
 onMounted(async () => {
   if (user?.value?.role === 'provider') {
-    providerStats.value = {
-      totalVehicles: 25,
-      availableVehicles: 18,
-      activeReservations: 12,
-      monthlyRevenue: 4500
-    };
+    const response: { data: ProviderStatsType } = await api.get(`/provider/${user.value?.id}/dashboard/stats`);
+
+    providerStats.value = response.data;
   }
 
   if (user?.value?.role === 'consumer') {

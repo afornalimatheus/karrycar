@@ -68,6 +68,16 @@ const routes: RouteRecordRaw[] = [
         path: 'vehicles',
         name: 'ConsumerAvailableVehicles',
         component: () => import('@/views/consumer/AvailableVehicles.vue')
+      },
+      {
+        path: 'reservations',
+        name: 'ConsumerReservations',
+        component: () => import('@/views/consumer/Reservations.vue')
+      },
+      {
+        path: 'schedule',
+        name: 'ConsumerScheduleVehicle',
+        component: () => import('@/views/consumer/ScheduleVehicle.vue')
       }
     ]
   }

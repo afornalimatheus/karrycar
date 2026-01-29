@@ -22,6 +22,11 @@ class VehicleService
             ->get();
     }
 
+    public function getTotalProviderVehicles(User $provider): int
+    {
+        return Vehicle::where('provider_id', $provider->id)->count();
+    }
+
     public function getProviderVehicles(User $provider): Collection
     {
         return Vehicle::where('provider_id', $provider->id)

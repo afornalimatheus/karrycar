@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Provider\Dashboard\DashboardController;
 use App\Http\Controllers\Provider\Vehicles\VehicleController;
 use App\Http\Controllers\ReservationController;
 use App\Models\User;
@@ -13,6 +14,10 @@ Route::prefix('auth')->name('auth.')->group(function () {
 Route::middleware('auth:sanctum')->group(function () {
     Route::prefix('provider')->name('provider.')->middleware("role:" . User::ROLE_PROVIDER)->group(function () {
         Route::prefix('{provider}')->middleware('owns:provider')->group(function () {
+            Route::prefix('dashboard')->name('dashboard.')->group(function () {
+                Route::get('/stats', [DashboardController::class, 'stats'])->name('stats');
+            });
+
             Route::apiResource('vehicles', VehicleController::class)->scoped();
         });
     });

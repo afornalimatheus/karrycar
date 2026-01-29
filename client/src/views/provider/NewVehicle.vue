@@ -34,18 +34,18 @@ const handleSubmit = async () => {
     });
 
     router.push(`/${user.value?.role}/${user.value?.id}/vehicles`);
-  } catch (error) {
+  } catch (error: any) {
     toast.add({ 
       severity: 'error', 
       summary: 'Errore', 
-      detail: 'Si è verificato un errore durante l\'aggiunta del veicolo.' 
+      detail: error?.response?.data?.message || 'Si è verificato un errore durante l\'aggiunta del veicolo.' 
     });
   }
 };
 </script>
 
 <template>
-  <Fieldset legend="Datti del veicolo">
+  <Fieldset legend="Dati del veicolo">
     <div class="add-vehicle-page">
       <div class="flex flex-col gap-6 mb-4">
         <FloatLabel>

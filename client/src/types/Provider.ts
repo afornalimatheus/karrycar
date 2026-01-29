@@ -1,6 +1,6 @@
 export interface ProviderStats {
-  totalVehicles: number;
-  availableVehicles: number;
-  activeReservations: number;
-  monthlyRevenue: number;
+  active_reservations: number;
+  completed_reservations: number;
+  total_vehicles: number;
+  vehicles: number;
 }
