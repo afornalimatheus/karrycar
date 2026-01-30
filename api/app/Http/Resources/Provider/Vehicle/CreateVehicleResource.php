@@ -25,6 +25,7 @@ class CreateVehicleResource extends JsonJsonResource
             'brand' => $this->brand,
             'model' => $this->model,
             'license_plate' => $this->license_plate,
+            'hourly_rate' => $this->hourly_rate,
             'provider' => new SimpleUserResource($this->whenLoaded('provider')),
         ];
     }

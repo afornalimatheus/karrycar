@@ -21,6 +21,7 @@ class VehicleFactory extends Factory
             'brand' => $this->faker->company(),
             'model' => $this->faker->word(),
             'license_plate' => strtoupper($this->faker->bothify('???####')),
+            'hourly_rate' => $this->faker->randomFloat(2, 5, 100),
             'provider_id' => User::factory()->state(['role' => User::ROLE_PROVIDER]),
         ];
     }

@@ -5,14 +5,14 @@ namespace App\Http\Resources\Provider\Vehicle;
 use App\Http\Resources\User\SimpleUserResource;
 use App\Models\Vehicle;
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\JsonResource as JsonJsonResource;
+use Illuminate\Http\Resources\Json\JsonResource;
 
 /**
  * )
  *
  * @mixin Vehicle
  */
-class ListVehiclesResource extends JsonJsonResource
+class ListVehiclesResource extends JsonResource
 {
     /**
      * @param Request $request
@@ -25,6 +25,7 @@ class ListVehiclesResource extends JsonJsonResource
             'brand' => $this->brand,
             'model' => $this->model,
             'license_plate' => $this->license_plate,
+            'hourly_rate' => (float) $this->hourly_rate,
             'provider' => new SimpleUserResource($this->whenLoaded('provider')),
         ];
     }

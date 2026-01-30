@@ -5,16 +5,19 @@ meta {
 }
 
 post {
-  url: {{domain}}/consumer/{{consumer}}/reservation
+  url: {{domain}}/consumer/{{consumer}}/reservations/:vehicleId
   body: json
   auth: inherit
 }
 
+params:path {
+  vehicleId: 21
+}
+
 body:json {
   {
-    "brand": "Mercedes",
-    "model": "200",
-    "license_plate": "BBBB"
+    "start_date": "a",
+    "end_date": "a"
   }
 }
 

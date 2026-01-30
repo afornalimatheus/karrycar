@@ -75,7 +75,7 @@ const routes: RouteRecordRaw[] = [
         component: () => import('@/views/consumer/Reservations.vue')
       },
       {
-        path: 'schedule',
+        path: 'reservations/new/:vehicleId',
         name: 'ConsumerScheduleVehicle',
         component: () => import('@/views/consumer/ScheduleVehicle.vue')
       }

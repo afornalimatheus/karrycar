@@ -5,5 +5,6 @@ export interface Vehicle {
   brand: string;
   model: string;
   license_plate: string;
+  hourly_rate: number;
   provider: User
 }

@@ -25,6 +25,7 @@ class CreateVehicleRequest extends FormRequest
             'brand' => ['required', 'string', 'max:255'],
             'model' => ['required', 'string', 'max:255'],
             'license_plate' => ['required', 'string', 'max:20', 'unique:vehicles,license_plate'],
+            'hourly_rate' => ['required', 'numeric', 'min:0'],
         ];
     }
 }

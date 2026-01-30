@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { useAuth } from '@/composables/useAuth';
-import type router from '@/router';
 import type { Vehicle } from '@/types/Vehicle';
 import { Button } from 'primevue';
 
@@ -22,10 +21,14 @@ const deleteVehicle = (vehicleId: number) => {
 <template>
   <div class="vehicle-card">
     <div class="vehicle-header">
-      <h3>{{ props.vehicle.brand }} - {{ props.vehicle.model }}</h3>
+      <h3>{{ props.vehicle.brand }}</h3>
+      <h4>{{ props.vehicle.model }}</h4>
     </div>
     <div class="vehicle-details">
       <p><strong>Targa:</strong> {{ props.vehicle.license_plate }}</p>
+    </div>
+    <div class="vehicle-details">
+      <p><strong>Tariffa oraria:</strong> € {{ props.vehicle.hourly_rate }}</p>
     </div>
     <div v-if="user?.role === 'provider'" class="vehicle-actions">
       <Button label="Modifica" severity="success" icon="pi pi-pencil" />
@@ -33,7 +36,13 @@ const deleteVehicle = (vehicleId: number) => {
     </div>
 
     <div v-else-if="user?.role === 'consumer'">
-      <router-link :to="{ name: 'ConsumerScheduleVehicle', query: { vehicleId: props.vehicle.id } }">
+      <router-link 
+        :to="{ 
+          name: 'ConsumerScheduleVehicle', 
+          params: { vehicleId: props.vehicle.id },
+          state: { hourlyRate: props.vehicle.hourly_rate }
+        }"
+      >
         <Button label="Prenotare" severity="info" icon="pi pi-pencil" />
       </router-link>
     </div>
@@ -51,8 +60,9 @@ const deleteVehicle = (vehicleId: number) => {
 
   .vehicle-header {
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
-    align-items: center;
+    align-items: start;
     margin-bottom: 16px;
     padding-bottom: 16px;
     border-bottom: 2px solid #f3f4f6;

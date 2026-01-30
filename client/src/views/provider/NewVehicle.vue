@@ -16,6 +16,7 @@ const { user } = useAuth();
 const brand = ref('');
 const model = ref('');
 const license_plate = ref('');
+const hourly_rate = ref('');
 
 const handleSubmit = async () => {
   try {
@@ -23,6 +24,7 @@ const handleSubmit = async () => {
       brand: brand.value,
       model: model.value,
       license_plate: license_plate.value,
+      hourly_rate: parseFloat(hourly_rate.value),
     };
 
     await api.post(`/provider/${user.value?.id}/vehicles`, payload);
@@ -59,6 +61,10 @@ const handleSubmit = async () => {
         <FloatLabel>
           <InputText id="license_plate" v-model="license_plate" />
           <label for="license_plate">Targa</label>
+        </FloatLabel>
+        <FloatLabel>
+          <InputText id="hourly_rate" v-model="hourly_rate" type="number" step="0.01" />
+          <label for="hourly_rate">Tariffa oraria</label>
         </FloatLabel>
       </div>
       

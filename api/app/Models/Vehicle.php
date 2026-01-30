@@ -16,6 +16,7 @@ class Vehicle extends Model
         'brand', 
         'model', 
         'license_plate',
+        'hourly_rate',
     ];
 
     /** @use HasFactory<\Database\Factories\VehicleFactory> */
